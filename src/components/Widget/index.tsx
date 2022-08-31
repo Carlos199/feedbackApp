@@ -8,6 +8,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { theme } from '../../theme';
 
 import { styles } from './styles';
+import { Options } from '../Options';
 
 function Widget() {
   const bottomSheetRef = useRef<BottomSheet>(null)
@@ -35,6 +36,7 @@ color={theme.colors.text_on_brand_color}
  handleIndicatorStyle={styles.indicator}
  >
 
+ <Options />
  </BottomSheet>
 
     </>

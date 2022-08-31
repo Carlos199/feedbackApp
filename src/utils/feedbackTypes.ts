@@ -1,14 +1,14 @@
 export const feedbackTypes = {
     'BUG' : {
         title: 'Problema',
-        image: require('../assets/bug.png')
+        image: require('../assets/Bug.png')
     },
     'IDEA' : {
         title: 'Idea',
-        image: require('../assets/idea.png')
+        image: require('../assets/Idea.png')
     },
     'OTHER' : {
         title: 'Otro',
-        image: require('../assets/thought.png')
+        image: require('../assets/Thought.png')
     },
 }
