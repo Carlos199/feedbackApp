@@ -1,6 +1,7 @@
 import { ArrowLeft } from 'phosphor-react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View,TouchableOpacity, Image, TextInput } from 'react-native';
+import { captureScreen } from 'react-native-view-shot'
 
 import { FeedbackType } from '../../components/Widget'
 
@@ -16,7 +17,23 @@ interface Props {
 }
 
 export function Form({feedbackType} : Props) {
+const [screenshot, setScreenshot] = useState<string | null>(null)
+
   const feedbackTypeInfo = feedbackTypes[feedbackType]
+
+  function handleScreenshot() {
+    captureScreen({
+      format: 'jpg',
+      quality: 0.8
+    })
+    .then(uri => setScreenshot(uri))
+    .catch(error => console.log(error))
+  }
+
+  function handleScreenshotRemove() {
+   setScreenshot(null)
+  }
+
   return (
     <View style={styles.container}>
      <View style={styles.header}>
@@ -49,9 +66,9 @@ export function Form({feedbackType} : Props) {
 
     <View style={styles.footer}>
      <ScreenshotButton 
-     onTakeShot={()=> {}}
-     onRemoveShot={()=> {}}
-     screenshot= "https://es.pngtree.com/freepng/website-link-icon_4438304.html"
+     onTakeShot={handleScreenshot}
+     onRemoveShot={handleScreenshotRemove}
+     screenshot= {screenshot}
      />
 
      <Button 

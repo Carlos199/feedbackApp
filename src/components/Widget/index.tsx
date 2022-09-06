@@ -42,10 +42,10 @@ color={theme.colors.text_on_brand_color}
  >
 
  {/* <Options /> */}
- {/* <Form 
+ <Form 
  feedbackType='BUG'
- /> */}
- <Success />
+ />
+ {/* <Success /> */}
  </BottomSheet>
 
     </>
