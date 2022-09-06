@@ -53,7 +53,7 @@ color={theme.colors.text_on_brand_color}
  >
 {
   feedbackSent ?
-<Success /> 
+<Success onSendAnotherFeedback={handleRestartFeedback}/> 
 :
 <>
 {

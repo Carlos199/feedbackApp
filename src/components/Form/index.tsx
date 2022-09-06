@@ -4,6 +4,7 @@ import { Text, View,TouchableOpacity, Image, TextInput } from 'react-native';
 import { captureScreen } from 'react-native-view-shot'
 
 import { FeedbackType } from '../../components/Widget'
+import { api } from '../../libs/api';
 
 import { theme } from '../../theme';
 import { feedbackTypes } from '../../utils/feedbackTypes';
@@ -21,6 +22,7 @@ interface Props {
 export function Form({feedbackType, onFeedbackCancelled, onFeedbackSent} : Props) {
  const [isSendingFeedback, setIsSendingFeeback]= useState(false)
   const [screenshot, setScreenshot] = useState<string | null>(null)
+  const [comment, setComment]= useState('')
 
   const feedbackTypeInfo = feedbackTypes[feedbackType]
 
@@ -43,6 +45,21 @@ export function Form({feedbackType, onFeedbackCancelled, onFeedbackSent} : Props
     }
 
     setIsSendingFeeback(true)
+
+    try {
+      await api.post('./feedbacks', {
+        type: feedbackType,
+        screenshot,
+        comment
+      })
+
+      onFeedbackSent()
+      
+    } catch (error) {
+      console.log(error)
+      setIsSendingFeeback(false)
+      
+    }
   }
 
   return (
@@ -74,6 +91,7 @@ export function Form({feedbackType, onFeedbackCancelled, onFeedbackSent} : Props
      placeholder= "Algo não está funcionando bem? Queremos corrigir. Conte com detalhes o que está acontecendo..."
      placeholderTextColor={theme.colors.text_secondary}
      autoCorrect={false}
+     onChangeText={setComment}
     />
 
     <View style={styles.footer}>
