@@ -11,6 +11,7 @@ import { styles } from './styles';
 import { Options } from '../Options';
 import { feedbackTypes } from '../../utils/feedbackTypes';
 import { Form } from '../Form';
+import { Success } from '../Success';
 
 export type FeedbackType = keyof typeof feedbackTypes
 
@@ -41,9 +42,10 @@ color={theme.colors.text_on_brand_color}
  >
 
  {/* <Options /> */}
- <Form 
+ {/* <Form 
  feedbackType='BUG'
- />
+ /> */}
+ <Success />
  </BottomSheet>
 
     </>
