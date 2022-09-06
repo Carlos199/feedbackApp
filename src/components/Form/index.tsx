@@ -14,10 +14,13 @@ import { styles } from './styles';
 
 interface Props {
   feedbackType : FeedbackType
+  onFeedbackCancelled: () => void
+  onFeedbackSent: () => void
 }
 
-export function Form({feedbackType} : Props) {
-const [screenshot, setScreenshot] = useState<string | null>(null)
+export function Form({feedbackType, onFeedbackCancelled, onFeedbackSent} : Props) {
+ const [isSendingFeedback, setIsSendingFeeback]= useState(false)
+  const [screenshot, setScreenshot] = useState<string | null>(null)
 
   const feedbackTypeInfo = feedbackTypes[feedbackType]
 
@@ -34,10 +37,18 @@ const [screenshot, setScreenshot] = useState<string | null>(null)
    setScreenshot(null)
   }
 
+  async function handleSendingFeedback() {
+    if (isSendingFeedback) {
+      return
+    }
+
+    setIsSendingFeeback(true)
+  }
+
   return (
     <View style={styles.container}>
      <View style={styles.header}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onFeedbackCancelled}>
         <ArrowLeft 
         size={24}
         weight="bold"
@@ -62,6 +73,7 @@ const [screenshot, setScreenshot] = useState<string | null>(null)
      style={styles.input}
      placeholder= "Algo não está funcionando bem? Queremos corrigir. Conte com detalhes o que está acontecendo..."
      placeholderTextColor={theme.colors.text_secondary}
+     autoCorrect={false}
     />
 
     <View style={styles.footer}>
@@ -72,7 +84,8 @@ const [screenshot, setScreenshot] = useState<string | null>(null)
      />
 
      <Button 
-     isLoading={true}
+     onPress={handleSendingFeedback}
+     isLoading={isSendingFeedback}
      />
     </View>
 
